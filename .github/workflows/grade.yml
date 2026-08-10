@@ -1,0 +1,32 @@
+name: Autograding Report
+
+on:
+  push:
+    paths:
+      - 'autograding_report.json'
+
+jobs:
+  decrypt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Decrypt and render report
+        run: |
+          if npx autograding decrypt autograding_report.json >> "$GITHUB_STEP_SUMMARY"; then
+            echo "✅ 得分面板已生成，见本页下方。"
+          else
+            echo "❌ 报告单解密失败。" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "请确认 autograding_report.json 是运行 \`npx autograding grade\` 后生成的原始文件，未经手动编辑。" >> "$GITHUB_STEP_SUMMARY"
+            echo "然后 commit 并 push 该文件。" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
