@@ -1,0 +1,4 @@
+# 强制 shell 脚本使用 LF 行尾。
+# core.autocrlf 会在 Windows checkout 时把 CRLF 写入文件，
+# 导致 bash 解析失败（$'{\r'）。eol=lf 覆盖该行为。
+*.sh text eol=lf

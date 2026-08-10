@@ -64,3 +64,13 @@
 - **Task 3 选择题卡住**：`npx autograding grade` 会逐题在终端提问，直接键入选项字母（A/B/C/D）并回车即可。
 - **报告归属不对**：评测报告会读取 `git config user.name`。可运行 `git config --global user.name "你的名字"` 设置。
 - **Docker 命令需要 sudo**：Task 2 要求不使用 sudo 运行 Docker。通常需要将当前用户加入 docker 组并重启终端。
+
+## 端到端烟测
+
+改动模板仓后，可以用引导脚本重跑一遍完整的候选人烟测，验证从 "Use this template" 到在 Actions 看到得分面板的全链路：
+
+```bash
+./scripts/smoke-test.sh
+```
+
+脚本会逐步引导你完成：创建派生仓 → clone → npm install → 完成 Makefile → 运行 grade → 提交并推送报告单 → 在 Actions 查看 Job Summary。
