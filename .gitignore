@@ -1,0 +1,20 @@
+# 依赖
+node_modules/
+
+# 构建产物（grade 运行 Makefile 时生成）
+output_images/
+processed_images.zip
+.docker_image_built
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 本地参考缓存（旧仓资产，不进入模板仓）
+.cache/
+
+# 系统文件
+.DS_Store
+
+# 注意：autograding_report.json 不在此忽略列表中。
+# 候选人必须 commit 此报告单，push 后触发 Actions 解密展示。

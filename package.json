@@ -1,0 +1,12 @@
+{
+  "name": "interview-autograding-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "面试评测模板仓：候选人 Use this template 后，在仓库目录内跑 npx autograding grade 评测，push 报告单后 Actions 展示得分。",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@boyuan-autograder/interview-autograder": "github:Boyuan-Autograder/interview-autograder#v0.1.0"
+  }
+}
