@@ -16,6 +16,23 @@ Docker 官方的安装教程: https://docs.docker.com/engine/install/
    - hint: 这通常需要将你的当前用户添加到 docker 用户组，并重启终端
 4. 容器能成功运行: 能够成功从 Docker Hub 拉取 hello-world 镜像并运行它
    - hint: 确保网络环境正常，如果无法正常连通，可使用第三方镜像进行加速
+5. Docker Compose 已安装: 支持 `docker compose`（v2 插件）或 `docker-compose`（v1 独立命令）任一
+   - Docker Desktop 已自带 Compose v2 插件，通常无需额外安装
+6. Compose 拉起服务: 能通过预置的 [task2/compose.yml](../task2/compose.yml) 拉起一个 nginx 服务并验证
+
+### 关于 Compose 拉起验证
+
+评测工具会用仓库里预置的 `task2/compose.yml` 自动执行一次完整的编排闭环，你**无需修改**该文件：
+
+```bash
+# 评测工具会依次执行：
+docker compose -f task2/compose.yml up -d    # 拉起服务
+docker compose -f task2/compose.yml ps       # 检查容器处于 running
+curl http://localhost:8080                    # 验证 nginx 默认页返回
+docker compose -f task2/compose.yml down     # 清理，不留副作用
+```
+
+这一步考察的是你"会用 Compose 编排服务"，因此**本地需能正常拉取 `nginx` 镜像**。若镜像拉取慢或失败，可配置镜像加速，或用代理确保容器运行时能访问 Docker Hub。
 
 ## 评测
 

@@ -1,10 +1,10 @@
 # 依赖
 node_modules/
 
-# 构建产物（grade 运行 Makefile 时生成）
-output_images/
-processed_images.zip
-.docker_image_built
+# 构建产物（grade 运行 task4 的 Makefile 时生成）
+task4/output_images/
+task4/processed_images.zip
+task4/.docker_image_built
 
 # Python 缓存
 __pycache__/

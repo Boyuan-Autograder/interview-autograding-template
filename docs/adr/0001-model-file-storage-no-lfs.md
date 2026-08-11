@@ -5,13 +5,13 @@
 
 ## Context
 
-task4 的工作区包含 `tool/models/u2netp.onnx`（4.4 MB），这是 rembg 的预训练 U2Net 模型权重。Makefile 的 `docker build` 目标会把整个 `tool/` 目录（含此模型文件）COPY 进 Docker 镜像，运行时用该模型对 input_images 做 AI 扣图。
+task4 的工作区包含 `task4/tool/models/u2netp.onnx`（4.4 MB），这是 rembg 的预训练 U2Net 模型权重。Makefile 的 `docker build` 目标会把整个 `task4/tool/` 目录（含此模型文件）COPY 进 Docker 镜像，运行时用该模型对 input_images 做 AI 扣图。
 
 Git LFS 3.7.0 已在本地可用。旧仓 `Boyuan-IT-Club/Interview-Autograding` 未使用 LFS（无 `.gitattributes`），4.4 MB 文件直接在 git 历史中。
 
 ## Decision
 
-将 `tool/models/u2netp.onnx` 直接 commit 到模板仓的 git 历史，**不**使用 Git LFS。
+将 `task4/tool/models/u2netp.onnx` 直接 commit 到模板仓的 git 历史，**不**使用 Git LFS。
 
 ## Rationale
 

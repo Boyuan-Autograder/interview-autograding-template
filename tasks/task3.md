@@ -29,6 +29,7 @@
     * 在 `/challenge` 目录内，创建一个名为 `data.txt` 的文件。
     * 向 `data.txt` 文件中写入内容 `Docker is awesome!`。
     * 将 `/challenge` 目录复制到 `/opt` 目录下，确保 `/opt/challenge/data.txt` 存在且内容正确。
+    * 将 `/challenge` 目录打包为 `/challenge.tar`（可 `tar -cf /challenge.tar -C / challenge` 或 `tar czf /challenge.tar challenge`，能被打包且包含 `data.txt` 即可）。
 
 3.  **退出容器**：
     完成上述操作后，输入 `exit` 并按回车，即可退出容器。此时容器会自动停止，但你做的所有文件更改都会被保存在容器里。

@@ -219,9 +219,9 @@ pause "npm install 成功后，回到终端继续。"
 
 # ── Stage 4: 复制并完成 Makefile ──────────────────────────────────────────
 stage "复制并完成 Makefile"
-say "Task 4 需要你完成一个 Makefile。先复制模板，再补完 TODO。"
-step "运行：cp starter_makefile Makefile"
-step "编辑 Makefile，完成所有标记 TODO 的部分（可 grep -rn \"TODO\" 定位）。"
+say "Task 4 的工作区在 task4/ 子目录。先复制模板，再补完 TODO。"
+step "运行：cd task4 && cp starter_makefile Makefile"
+step "编辑 task4/Makefile，完成所有标记 TODO 的部分（可 grep -rn \"TODO\" 定位）。"
 note "若跳过此步，Task 4 会得 0 分——烟测仍可继续，但建议补完以完整验证。"
 pause "Makefile 完成后，回到终端继续。"
 
