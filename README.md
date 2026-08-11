@@ -82,7 +82,13 @@ npm install
 npx autograding grade
 ```
 
-工具会依次检查五个 Task。其中 Task 3 会在终端逐题提问选择题，输入选项字母（A/B/C/D）并回车即可。评分结束后仓库根目录生成加密成绩单 `autograding_report.json`，终端显示总分与各项得分。
+工具会依次检查五个 Task。其中 Task 3 会在终端逐题提问选择题，输入选项字母（A/B/C/D）并回车即可；若需非交互运行（如自动化脚本），可改用 `--answers` 一次性传入答案：
+
+```bash
+npx autograding grade --answers B,D,B,B,C,C,B,C,B,D,C,D,C,B,C
+```
+
+（等价于设置环境变量 `AUTOGRADING_ANSWERS`，或在仓库根目录放一份 `quiz-answers.txt`，内容为逗号或空格分隔的 A-D。）评分结束后仓库根目录生成加密成绩单 `autograding_report.json`，终端显示总分与各项得分。
 
 将成绩单提交并推送：
 
@@ -103,7 +109,7 @@ push 后打开派生仓库的 **Actions** 标签页，在最新一次运行记�
 - **Task 4 得 0 分**：确认已在 `task4/` 目录复制 `Makefile` 并完成全部 TODO，且 Docker Desktop 正在运行。
 - **Task 2 的 Compose 验证失败**：确认本地能拉取 `nginx` 镜像（可配置镜像加速或代理），`docker compose` 可用，且**已在运行 `grade` 前手动 `docker compose -f task2/compose.yml up -d` 拉起 nginx**（grader 不替你拉起，nginx 未 running 该项直接 0 分）。
 - **Task 1 的 SSH 检查失败**：确认 `~/.ssh` 下有公钥、`ssh-add -l` 已加载密钥、指纹可解析（见 [task1.md](./tasks/task1.md)）。
-- **Task 3 选择题卡住**：评测会逐题提问，输入选项字母（A/B/C/D）并回车。
+- **Task 3 选择题卡住**：交互评测会逐题提问，输入选项字母（A/B/C/D）并回车；非交互环境（CI/脚本）需用 `--answers` 或 `AUTOGRADING_ANSWERS` / `quiz-answers.txt` 提供答案，否则 quiz 记 0 分（不会挂起）。
 - **成绩单归属不对**：评测报告读取 `git config user.name`，可运行 `git config --global user.name "你的名字"` 设置。
 - **Docker 命令需要 sudo**：Task 2 要求不使用 sudo。通常将当前用户加入 `docker` 组并重启终端即可。
 
