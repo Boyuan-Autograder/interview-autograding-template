@@ -13,11 +13,10 @@ Docker 官方的安装教程: https://docs.docker.com/engine/install/
 1. Docker 命令可用: 在终端可以直接运行 docker 命令
 2. Docker 服务正在运行: Docker 的后台守护进程必须是启动且在运行状态
 3. 用户权限正确: 你必须能够不使用 sudo 就运行 Docker 命令
-   - hint: 这通常需要将你的当前用户添加到 docker 用户组，并重启终端
+    - hint: 这通常需要将你的当前用户添加到 docker 用户组，并重启终端
 4. 容器能成功运行: 能够成功从 Docker Hub 拉取 hello-world 镜像并运行它
-   - hint: 确保网络环境正常，如果无法正常连通，可使用第三方镜像进行加速
+    - hint: 确保网络环境正常，如果无法正常连通，可使用第三方镜像进行加速
 5. Docker Compose 已安装: 支持 `docker compose`（v2 插件）或 `docker-compose`（v1 独立命令）任一
-   - Docker Desktop 已自带 Compose v2 插件，通常无需额外安装
 6. Compose 拉起服务: 能通过预置的 [task2/compose.yml](../task2/compose.yml) 拉起一个 nginx 服务并验证
 
 ### 关于 Compose 拉起验证
