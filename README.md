@@ -1,6 +1,6 @@
 # Boyuan::Interview-Autograding-Template
 
-这是一个用于博远信息工作室技术评测的模板仓库。请你通过 "Use this template" 在自己账号下创建派生仓库，并拉取你的派生仓库到本地，在你的本地仓库目录内完成四个 task，commit `` push，GitHub Actions 会自动解密并在运行记录里展示得分面板。
+这是一个用于博远信息工作室技术评测的模板仓库。请你通过 "Use this template" 在自己账号下创建派生仓库，并拉取你的派生仓库到本地，在你的本地仓库目录内完成五个 task，commit `` push，GitHub Actions 会自动解密并在运行记录里展示得分面板。
 
 > 使用该评测前必读!!! 请你严格按照如下规定进行评测, 否则可能会出现无法预料的问题.
 
@@ -8,14 +8,14 @@
 
 ## 前置依赖
 
-开始前请确保你的机器已安装以下软件。四个 task 的评测分别在本地运行，环境检查会测试你的机器。
+开始前请确保你的机器已安装以下软件。五个 task 的评测分别在本地运行，环境检查会测试你的机器。
 
 | 依赖           | 版本要求                     | 说明                                                            | 官方下载                                        |
 | -------------- | ---------------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
 | Node.js        | 20+                          | 运行评测工具（`npx autograding grade`），Task 1 会检查          | https://nodejs.org/                             |
 | Docker Desktop | 最新（需运行中），含 Compose | Task 2 / Task 3 需要；Task 4 需要构建镜像；Task 2 检查 Compose  | https://www.docker.com/products/docker-desktop/ |
 | Docker Compose | 随 Docker Desktop 自带       | Task 2 检查 `docker compose` 编排能力                            | —                                               |
-| Git            | ≥ 2.30                      | Task 1 检查；报告归属需要 `git config user.name`                   | https://git-scm.com/                            |
+| Git            | ≥ 2.30                      | Task 1 检查；Task 5 分支/提交/合并；报告归属                       | https://git-scm.com/                            |
 | Python 3       | ≥ 3.10                      | Task 1 检查                                                      | https://www.python.org/                         |
 
 > **Task 1 会检查 SSH 密钥配置**（`~/.ssh/id_*.pub` 存在 + `ssh-add -l` 已加载 + 指纹可解析），需要配合 Git SSH 使用。
@@ -45,7 +45,7 @@
     ```bash
     npx autograding grade
     ```
-    工具会依次运行四个 task 的环境检查，并在终端交互式回答 Task 3 的选择题。评分结束后，仓库根会生成加密报告单 `autograding_report.json`。
+    工具会依次运行五个 task 的环境检查，并在终端交互式回答 Task 3 的选择题。评分结束后，仓库根会生成加密报告单 `autograding_report.json`。
 6. **提交并推送报告单**：
     ```bash
     git add autograding_report.json
@@ -56,7 +56,7 @@
 
 > 你可以想什么时候交就什么时候交——完成一个 task 就交一次，或全部做完一次性交，系统只看最后一次 push 的报告单。
 
-## 四个 Task
+## 五个 Task
 
 点击下方链接查看每个 task 的详细说明：
 
@@ -64,6 +64,7 @@
 - [**Task 2: 安装 Docker**](./tasks/task2.md) — 安装并配置 Docker，检查命令可用、服务运行、用户权限、容器执行、Docker Compose、Compose 编排 nginx
 - [**Task 3: 基础 Linux 操作**](./tasks/task3.md) — 在 Docker 容器内做文件操作（含 tar 打包）+ 15 道选择题
 - [**Task 4: Makefile**](./tasks/task4.md) — 为 AI 扣图工具编写 Makefile，自动化构建、处理、打包、清理（工作区在 `task4/`）
+- [**Task 5: Git 版本控制**](./tasks/task5.md) — 分支创建、提交、合并，修复 `task5/greet.sh` 的 bug 并合回 main
 
 ## 故障排查
 

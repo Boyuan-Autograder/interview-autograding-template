@@ -133,7 +133,7 @@ ssh-keygen -l -f ~/.ssh/id_ed25519.pub
 
 ## 评测
 
-在仓库根目录运行评测命令，四个 task 会一起执行：
+在仓库根目录运行评测命令，五个 task 会一起执行：
 
 ```bash
 # 在仓库根目录（clone 下来的 interview-autograding-template 目录）

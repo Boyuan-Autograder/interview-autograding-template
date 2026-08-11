@@ -184,7 +184,7 @@ finish() {
 # Replace the example below. Set TOTAL_STAGES to match the stages you write.
 # ──────────────────────────────────────────────────────────────────────────
 
-TOTAL_STAGES=7
+TOTAL_STAGES=8
 
 banner "面试评测模板 — 端到端烟测"
 
@@ -225,15 +225,25 @@ step "编辑 task4/Makefile，完成所有标记 TODO 的部分（可 grep -rn \
 note "若跳过此步，Task 4 会得 0 分——烟测仍可继续，但建议补完以完整验证。"
 pause "Makefile 完成后，回到终端继续。"
 
-# ── Stage 5: 运行评测 ─────────────────────────────────────────────────────
+# ── Stage 5: 完成 Task 5 的 Git 工作流 ────────────────────────────────────
+stage "完成 Task 5 的 Git 工作流"
+say "Task 5 需要你用一个真实 Git 工作流修复 task5/greet.sh 的 bug 并合回 main。"
+step "运行：git checkout -b task5-git"
+step "修复 task5/greet.sh 的变量名 typo（把 \$nam 改成 \$name）。"
+step "运行：git add task5/greet.sh && git commit -m \"task5: 修复 greet.sh typo\""
+step "运行：git checkout main && git merge task5-git"
+note "若跳过此步，Task 5 会得 0 分——烟测仍可继续，但建议补完以完整验证。"
+pause "Task 5 工作流完成后，回到终端继续。"
+
+# ── Stage 6: 运行评测 ─────────────────────────────────────────────────────
 stage "运行评测 (npx autograding grade)"
-say "在仓库根运行评测，四个 task 会依次执行。"
+say "在仓库根运行评测，五个 task 会依次执行。"
 step "运行：npx autograding grade"
 step "Task 3 会逐题在终端提问选择题（共 15 题），键入 A/B/C/D 并回车。"
 note "评分结束后仓库根会生成加密报告单 autograding_report.json。"
 pause "评测完成、报告单已生成后，回到终端继续。"
 
-# ── Stage 6: 提交并推送报告单 ─────────────────────────────────────────────
+# ── Stage 7: 提交并推送报告单 ─────────────────────────────────────────────
 stage "提交并推送报告单"
 say "把加密报告单 commit 并 push，触发 Actions workflow。"
 step "运行：git add autograding_report.json"
@@ -241,7 +251,7 @@ step "运行：git commit -m \"提交评测报告\""
 step "运行：git push"
 pause "push 成功后，回到终端继续。"
 
-# ── Stage 7: Actions 查看 Job Summary 得分面板 ────────────────────────────
+# ── Stage 8: Actions 查看 Job Summary 得分面板 ────────────────────────────
 stage "Actions 查看得分面板"
 say "在派生仓的 Actions 运行记录里查看解密后的得分面板。"
 step "回到浏览器，打开你的派生仓页面，点击顶部 'Actions' 标签。"
