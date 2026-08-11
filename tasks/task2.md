@@ -21,7 +21,7 @@ Docker 官方的安装教程: https://docs.docker.com/engine/install/
 
 ### 关于 Compose 拉起验证
 
-这一步考察的是你"会用 Compose 编排服务"，因此**拉起与清理由你手动完成**，评测工具只做只读验证。你**无需修改**预置的 `task2/compose.yml`：
+这一步考察"会用 Compose 编排服务"，因此**拉起与清理由你手动完成**，评测工具只做只读验证。你**无需修改**预置的 `task2/compose.yml`：
 
 ```bash
 # 1. 在运行 grade 之前，你手动拉起服务：
@@ -37,13 +37,11 @@ npx autograding grade
 docker compose -f task2/compose.yml down
 ```
 
-> **重要**：评测工具不会替你拉起服务。如果运行 `grade` 时 nginx 未处于 running，该项直接判 0 分。请确保**先 `up`，再 `grade`**。
-
 本地需能正常拉取 `nginx` 镜像。若镜像拉取慢或失败，可配置镜像加速或用代理确保容器运行时能访问 Docker Hub。
 
 ## 评测
 
-完成安装后，在仓库根目录运行评测命令：
+完成任务后，在仓库根目录运行评测命令：
 
 ```bash
 npx autograding grade
