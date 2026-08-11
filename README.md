@@ -85,7 +85,7 @@ npx autograding grade
 工具会依次检查五个 Task。其中 Task 3 会在终端逐题提问选择题，输入选项字母（A/B/C/D）并回车即可；若需非交互运行（如自动化脚本），可改用 `--answers` 一次性传入答案：
 
 ```bash
-npx autograding grade --answers B,D,B,B,C,C,B,C,B,D,C,D,C,B,C
+npx autograding grade --answers <15 道题答案，逗号分隔的 A-D>
 ```
 
 （等价于设置环境变量 `AUTOGRADING_ANSWERS`，或在仓库根目录放一份 `quiz-answers.txt`，内容为逗号或空格分隔的 A-D。）评分结束后仓库根目录生成加密成绩单 `autograding_report.json`，终端显示总分与各项得分。
