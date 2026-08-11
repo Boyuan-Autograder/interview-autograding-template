@@ -17,21 +17,29 @@ Docker 官方的安装教程: https://docs.docker.com/engine/install/
 4. 容器能成功运行: 能够成功从 Docker Hub 拉取 hello-world 镜像并运行它
     - hint: 确保网络环境正常，如果无法正常连通，可使用第三方镜像进行加速
 5. Docker Compose 已安装: 支持 `docker compose`（v2 插件）或 `docker-compose`（v1 独立命令）任一
-6. Compose 拉起服务: 能通过预置的 [task2/compose.yml](../task2/compose.yml) 拉起一个 nginx 服务并验证
+6. Compose 拉起服务: 你需手动用预置的 [task2/compose.yml](../task2/compose.yml) 拉起一个 nginx 服务，评测工具只验证该服务是否真的可达
 
 ### 关于 Compose 拉起验证
 
-评测工具会用仓库里预置的 `task2/compose.yml` 自动执行一次完整的编排闭环，你**无需修改**该文件：
+这一步考察的是你"会用 Compose 编排服务"，因此**拉起与清理由你手动完成**，评测工具只做只读验证。你**无需修改**预置的 `task2/compose.yml`：
 
 ```bash
-# 评测工具会依次执行：
-docker compose -f task2/compose.yml up -d    # 拉起服务
-docker compose -f task2/compose.yml ps       # 检查容器处于 running
-curl http://localhost:8080                    # 验证 nginx 默认页返回
-docker compose -f task2/compose.yml down     # 清理，不留副作用
+# 1. 在运行 grade 之前，你手动拉起服务：
+docker compose -f task2/compose.yml up -d
+
+# 2. 运行评测（此时 nginx 必须已处于 running）：
+npx autograding grade
+#    评测工具会执行：
+#    docker compose -f task2/compose.yml ps     # 确认 autograding-task2-nginx 容器 running
+#    curl http://localhost:8080                 # 验证 nginx 默认页含 "Welcome to nginx!"
+
+# 3. grade 结束后，你手动清理：
+docker compose -f task2/compose.yml down
 ```
 
-这一步考察的是你"会用 Compose 编排服务"，因此**本地需能正常拉取 `nginx` 镜像**。若镜像拉取慢或失败，可配置镜像加速，或用代理确保容器运行时能访问 Docker Hub。
+> **重要**：评测工具不会替你拉起服务。如果运行 `grade` 时 nginx 未处于 running，该项直接判 0 分。请确保**先 `up`，再 `grade`**。
+
+本地需能正常拉取 `nginx` 镜像。若镜像拉取慢或失败，可配置镜像加速或用代理确保容器运行时能访问 Docker Hub。
 
 ## 评测
 

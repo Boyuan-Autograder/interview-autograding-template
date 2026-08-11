@@ -19,7 +19,7 @@
 ## task 结构
 
 - **task1** — 配置运行环境（满分 100）。OS/WSL 环境（30）、Git 已装且版本 ≥ 2.30（15）、Python3 已装且版本 ≥ 3.10（15）、Node.js 已装且版本 ≥ 20（20）、SSH 本地配置（20，三项全过：`~/.ssh/id_*.pub` 存在 + `ssh-add -l` 非空 + `ssh-keygen -l -f` 成功）。版本检查"已装且达标"才给分。
-- **task2** — 安装 Docker（满分 100）。Docker 已装（15）、服务运行（15）、用户权限（15，macOS 跳过）、hello-world 执行（15）、Docker Compose 已装（15）、Compose 拉起预置 nginx compose 文件并验证（25，含拉取+验证+清理）。
+- **task2** — 安装 Docker（满分 100）。Docker 已装（15）、服务运行（15）、用户权限（15，macOS 跳过）、hello-world 执行（15）、Docker Compose 已装（15）、**Nginx Service Reachable Check**（25，候选人手动 `docker compose -f task2/compose.yml up -d` 拉起 nginx 后，grader 跑 `ps` 确认容器 running + `curl http://localhost:8080` 验证含 `Welcome to nginx!`；grader 不调 up/down，nginx 不可达直接判该项 0 分并提示候选人先 up）。详见 ADR-0002。
 - **task3** — 基础 Linux 操作（满分 100）。在 Docker 容器内做文件操作（目录创建 10、文件创建 10、文件内容 10、目录复制 10、tar 打包 10，共 50 分）+ 15 道选择题（共 50 分）。
 - **task4** — Makefile（满分 100）。检查候选人写的 Makefile：`make_all_creates_zip`（30）、`zip_contains_all_files`（40）、`make_clean_works`（30）。工作区在 `task4/` 子目录。
 - **task5** — Git 版本控制（满分 100）。在候选人派生仓内本地评测 git 状态：分支创建（30，存在 `task5-git` 分支）、提交（30，该分支相对 main 有 ≥1 commit 且 message 含 `task5` 且改动触及 `task5/greet.sh`）、合并/验证（40，main 上跑 `bash task5/greet.sh` 输出 `"Hello, 博远!"`）。弱约束，允许 fast-forward。纯本地 `git`/`bash` 检查，不进网络。
@@ -28,7 +28,7 @@
 
 按 `taskN/` 子目录约定组织，分门别类，避免仓库根目录混乱。
 
-- **task2/compose.yml** — 预置的 Docker Compose 文件，起一个 nginx 服务。task2 grader 跑 `docker compose -f task2/compose.yml up -d`，检查容器 running、`curl` 验证 nginx 默认页、再 `down` 清理。
+- **task2/compose.yml** — 预置的 Docker Compose 文件，起一个 nginx 服务（`container_name: autograding-task2-nginx`，`8080:80`）。候选人手动跑 `docker compose -f task2/compose.yml up -d` 拉起、grade 结束后跑 `down` 清理；grader 只跑 `ps` + `curl` 验证，不调 up/down（见 ADR-0002）。候选人不修改此文件。
 - **task4/starter_makefile** — 候选人参考的 Makefile 模板，含 TODO 标记。候选人复制为 `task4/Makefile` 并完成。模板仓提交此文件。
 - **task4/input_images/** — 4 张输入 jpg（cat、dog、panda、pig）。Makefile 处理的输入。
 - **task4/tool/** — AI 扣图工具源码（Dockerfile、main.py、requirements.txt、models/u2netp.onnx）。候选人无需修改，Makefile 的 `docker build` 目标构建此目录为 `ai-remover` 镜像。

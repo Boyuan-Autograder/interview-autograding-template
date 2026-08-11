@@ -1,7 +1,8 @@
 # 预置的 Docker Compose 文件：起一个最小 nginx 服务。
-# task2 grader 用此文件考察候选人能否用 Compose 拉起编排服务：
-#   docker compose -f task2/compose.yml up -d
-#   检查容器 running → curl 验证 nginx 默认页 → docker compose down 清理
+# task2 分工（ADR-0002）：候选人手动 up/down，grader 只验证。
+#   候选人：docker compose -f task2/compose.yml up -d
+#   grader：docker compose -f task2/compose.yml ps + curl http://localhost:8080
+#   候选人：docker compose -f task2/compose.yml down   # grade 结束后清理
 # 候选人不修改此文件。
 services:
   nginx:

@@ -101,7 +101,7 @@ push 后打开派生仓库的 **Actions** 标签页，在最新一次运行记�
 - **`npx autograding grade` 报错找不到命令**：确认已运行 `npm install`，且 Node.js 版本 ≥ 20。
 - **GitHub Actions 提示"报告单解密失败"**：确认 `autograding_report.json` 是 `npx autograding grade` 生成的原始文件，未经手动编辑。
 - **Task 4 得 0 分**：确认已在 `task4/` 目录复制 `Makefile` 并完成全部 TODO，且 Docker Desktop 正在运行。
-- **Task 2 的 Compose 验证失败**：确认本地能拉取 `nginx` 镜像（可配置镜像加速或代理），且 `docker compose` 可用。
+- **Task 2 的 Compose 验证失败**：确认本地能拉取 `nginx` 镜像（可配置镜像加速或代理），`docker compose` 可用，且**已在运行 `grade` 前手动 `docker compose -f task2/compose.yml up -d` 拉起 nginx**（grader 不替你拉起，nginx 未 running 该项直接 0 分）。
 - **Task 1 的 SSH 检查失败**：确认 `~/.ssh` 下有公钥、`ssh-add -l` 已加载密钥、指纹可解析（见 [task1.md](./tasks/task1.md)）。
 - **Task 3 选择题卡住**：评测会逐题提问，输入选项字母（A/B/C/D）并回车。
 - **成绩单归属不对**：评测报告读取 `git config user.name`，可运行 `git config --global user.name "你的名字"` 设置。
