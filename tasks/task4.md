@@ -3,6 +3,7 @@
 在这个 TASK 中，你将为一个基于 Docker 的 AI 扣图工具编写一套完整的自动化工作流
 
 ## 任务目标
+
 你需要完成一个 Makefile，使其能够自动化以下整个流程：
 
 - 构建：自动构建包含 AI 工具的 Docker 镜像
@@ -10,7 +11,9 @@
 - 打包：将所有处理完成的图片打包成一个名为 `processed_images.zip` 的压缩文件
 - 清理：提供一个命令来清理所有生成的文件（输出目录、压缩包和构建标记）
 
-本 task 的工作区集中在 `task4/` 子目录，分门别类。
+> Make是一个在软件开发中所使用的构建工具，用于自动化建构软件。 它通过一个名为 Makefile 的文本文件来描述源代码文件之间的依赖关系和构建规则。 Make 会根据这些规则和依赖关系，判断哪些文件需要重新编译，并执行相应的编译命令，以确保最终生成可执行文件或其他目标文件（这些目标被称为“target”）。 大多数情况下，它被用来编译源代码，生成结果代码，然后把结果代码连接起来生成可执行文件或者库文件。–wikipedia
+
+本 task 的工作区集中在 `task4/` 子目录。
 
 ## 项目结构
 
@@ -34,12 +37,12 @@
 
 - 进入工作区: 先进入 `task4/` 目录。
 - 复制文件: 将 `starter_makefile` 复制为 `Makefile`（保留原文件作参考）。
-  ```bash
-  cd task4
-  cp starter_makefile Makefile
-  ```
+    ```bash
+    cd task4
+    cp starter_makefile Makefile
+    ```
 - 完成 Makefile: 打开 `task4/Makefile` 文件，找到并完成所有标记为 TODO 的部分 (`grep -rn "TODO"`)
-  - 你需要编写规则来自动化构建、处理、打包和清理的流程。
+    - 你需要编写规则来自动化构建、处理、打包和清理的流程。
 - 运行评测: 在仓库根目录运行 `npx autograding grade`。工具会在 `task4/` 子目录定位到你的 `Makefile` 和 `input_images/`，用 `make -C task4` 调用并检查其功能是否符合要求。
 
 ## 评分规则
@@ -51,7 +54,8 @@
 - make clean 能否成功清理所有生成的文件。
 
 ## 值得一用的材料
+
 - GNU Make Manual: https://www.gnu.org/software/make/manual/
-  - `info make`
+    - `info make`
 - Make manpage: `man make`
 - 大语言模型们
