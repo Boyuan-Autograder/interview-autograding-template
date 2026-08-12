@@ -34,6 +34,7 @@
 - **task4/tool/** — AI 扣图工具源码（Dockerfile、main.py、requirements.txt、models/u2netp.onnx）。候选人无需修改，Makefile 的 `docker build` 目标构建此目录为 `ai-remover` 镜像。
 - **task4/Makefile** — 候选人完成的文件。工具仓 task4 在 `task4/` 子目录找字面 `Makefile`，无 starter_makefile 回退。grader 用 `make -C task4` 调用。
 - **task5/greet.sh** — 预置的带 bug 脚本（变量名 typo：`$nam` 应为 `$name`）。候选人在 `task5-git` 分支修复，合回 main 后 grader 跑 `bash task5/greet.sh` 验证输出 `"Hello, 博远!"`。
+- **数据挂载（data mounts）** — 运行 task4 工具镜像时的挂载约定：只把 `input_images/`、`output_images/` 两个数据目录挂入容器的 `/app` 对应路径，工具代码与模型随镜像自带、不参与挂载。避免说整目录挂载或工作区挂载：把整个 `task4/` 盖到 `/app` 的旧约定会遮住镜像内文件、废掉默认入口（见 ADR-0003）。
 
 ## 展示
 

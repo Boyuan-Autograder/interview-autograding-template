@@ -47,10 +47,11 @@
 
 ### Docker 容器中的路径
 
-运行图片处理工具时，需要将整个 `task4/` 工作区挂载到容器的 `/app`。该挂载会遮住镜像构建阶段复制到 `/app` 的文件，因此需覆盖 Dockerfile 的默认入口，并使用挂载后的路径：
+工具镜像已包含脚本与模型（默认入口 `python main.py`），运行时只需把数据目录挂载进容器：
 
-- Python 入口：`python /app/tool/main.py`
-- 模型目录：`U2NET_HOME=/app/tool/models`
+- 挂载输入：`-v "$(shell pwd)/input_images:/app/input_images"`
+- 挂载输出：`-v "$(shell pwd)/output_images:/app/output_images"`
+- 模型目录（镜像内）：`U2NET_HOME=/app/models`
 - 输入和输出：`/app/input_images/...` 与 `/app/output_images/...`
 
 打包时，压缩包根目录应只包含生成的 PNG 文件，不应包含 `output_images/` 目录项。可以查看 `zip` 的 `-j` 选项。
