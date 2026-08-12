@@ -45,6 +45,16 @@
     - 你需要编写规则来自动化构建、处理、打包和清理的流程。
 - 运行评测: 在仓库根目录运行 `npx autograding grade`。工具会在 `task4/` 子目录定位到你的 `Makefile` 和 `input_images/`，用 `make -C task4` 调用并检查其功能是否符合要求。
 
+### Docker 容器中的路径
+
+运行图片处理工具时，需要将整个 `task4/` 工作区挂载到容器的 `/app`。该挂载会遮住镜像构建阶段复制到 `/app` 的文件，因此需覆盖 Dockerfile 的默认入口，并使用挂载后的路径：
+
+- Python 入口：`python /app/tool/main.py`
+- 模型目录：`U2NET_HOME=/app/tool/models`
+- 输入和输出：`/app/input_images/...` 与 `/app/output_images/...`
+
+打包时，压缩包根目录应只包含生成的 PNG 文件，不应包含 `output_images/` 目录项。可以查看 `zip` 的 `-j` 选项。
+
 ## 评分规则
 
 评测工具会检查以下几点：
