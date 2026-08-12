@@ -13,6 +13,9 @@ __pycache__/
 # 本地参考缓存（旧仓资产，不进入模板仓）
 .cache/
 
+# 本地测试用 quiz 答案（勿提交）
+quiz-answers.txt
+
 # 系统文件
 .DS_Store
 

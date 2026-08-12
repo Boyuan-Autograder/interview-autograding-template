@@ -113,6 +113,18 @@ push 后打开派生仓库的 **Actions** 标签页，在最新一次运行记�
 - **成绩单归属不对**：评测报告读取 `git config user.name`，可运行 `git config --global user.name "你的名字"` 设置。
 - **Docker 命令需要 sudo**：Task 2 要求不使用 sudo。通常将当前用户加入 `docker` 组并重启终端即可。
 
+## 技术分享练习仓库
+
+以下仓库是2025技术分享配套的练习仓库，欢迎了解：
+
+| 序号 | 主题                             | 仓库地址                                                                                                                                  |
+| ---- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | 理解与使用大模型 API（Lesson 1） | https://github.com/Boyuan-Autograder/technique-sharing-lesson-1-understanding-and-using-large-model-apis-Lesson-1-Understanding-and-Using |
+| 2    | 构建面向对象对话程序（Lesson 2） | https://github.com/Boyuan-Autograder/technique-sharing-2025-2026-lesson2-build-an-object-oriented-dialogue-program-Lesson-2-Build-an-Obje |
+| 3    | ASR 与 TTS（Lesson 4）           | https://github.com/Boyuan-Autograder/technique-sharing-2025-2026-lesson4-asr-and-tts-Lesson-4-ASR-and-TTS                                 |
+| 4    | 多模态输入处理（Lesson 5）       | https://github.com/Boyuan-Autograder/technique-sharing-2025-2026-lesson-5-multimodal-input-processing-beyond-ocr-and-text-technique-shari |
+| 5    | RAG 作业（Lesson 6）             | https://github.com/Boyuan-Autograder/technique-sharing-2025-2026-lesson6-rag-rag-assignment                                               |
+
 ## 给维护者：端到端烟测
 
 > 本节面向评测维护者，非仓库维护者可忽略。
