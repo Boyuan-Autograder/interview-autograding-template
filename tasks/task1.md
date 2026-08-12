@@ -132,6 +132,64 @@ SSH 密钥的设计目的, 是解决身份验证的问题——如何向服务�
 
 本任务只检查以上本地能力 (公钥文件存在 + agent 已加载 + 指纹可解析), 不连接 GitHub。
 
+#### 启动 `ssh-agent` 并加载密钥
+
+仅仅生成密钥文件还不够：评测运行时，`ssh-agent` 必须正在运行，并且已经加载你的私钥。你可以选择下面任意一种方式。
+
+**方式一：在当前终端手动启动（最简单）**
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+ssh-add -l
+```
+
+如果你的私钥文件名不是 `id_ed25519`，请将命令中的路径替换为实际路径。该方式只对当前终端会话生效；重新打开终端后，可能需要再次执行。
+
+**方式二：使用 systemd 用户服务自动启动（Linux 或已启用 systemd 的 WSL2）**
+
+先创建用户服务目录：
+
+```bash
+mkdir -p ~/.config/systemd/user
+```
+
+然后创建 `~/.config/systemd/user/ssh-agent.service`：
+
+```ini
+[Unit]
+Description=OpenSSH authentication agent
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh-agent -D -a %t/ssh-agent.socket
+
+[Install]
+WantedBy=default.target
+```
+
+然后启用服务：
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now ssh-agent.service
+```
+
+在 `~/.profile` 或你的 shell 启动文件中加入下面一行，让终端连接到该 agent：
+
+```bash
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+```
+
+重新打开终端后，加载并检查密钥：
+
+```bash
+ssh-add ~/.ssh/id_ed25519
+ssh-add -l
+```
+
+如果 `systemctl --user` 提示 systemd 未运行，请使用方式一，或先按照 WSL 官方文档启用 systemd。macOS 使用 `launchd` 管理后台服务，不适用上面的 systemd 配置；完成本任务时可以直接使用方式一。
+
 ## 评测
 
 在仓库根目录运行评测命令，五个 task 会一起执行，可以只关注 task1 的结果：

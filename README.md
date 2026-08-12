@@ -73,6 +73,8 @@ npm install
 按顺序完成 [task1.md](./tasks/task1.md) 至 [task5.md](./tasks/task5.md)。每个 Task 文档包含详细步骤、操作示例与评分规则。
 
 > Task 4 需在 `task4/` 目录下将 `starter_makefile` 复制为 `Makefile` 并补全 TODO，详见 [task4.md](./tasks/task4.md)。
+>
+> **请耐心等待 Task 2 和 Task 4 的下载与构建过程：** Task 2 首次运行时需要从 Docker Hub 拉取 `hello-world`、`nginx` 等镜像；Task 4 首次构建时需要拉取 Python 基础镜像并安装 AI 工具依赖。所需时间取决于网络状况，中途可能会较长时间没有新输出。只要终端没有明确报错，请不要按 `Ctrl+C` 或关闭终端，等待命令执行完成。
 
 ### 4. 评测并提交
 

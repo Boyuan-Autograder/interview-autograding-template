@@ -50,9 +50,13 @@ $(DOCKER_BUILD_MARKER): $(TOOL_DIR)/Dockerfile $(TOOL_DIR)/main.py $(TOOL_DIR)/r
 # 在下方编写 `docker run' 命令来调用图像处理工具进行处理
 # - docker run --rm
 # - 将当前目录挂载到容器的 `/app` 目录: `-v "$(shell pwd):/app"`
-# - 定义环境变量: `-e U2NET_HOME=.....`，指向容器中的 `models' 文件夹
+#   注意：该挂载会遮住镜像构建时复制到 `/app` 的文件，因此不能继续使用
+#   Dockerfile 中默认的 `python main.py` 入口
+# - 定义环境变量: `-e U2NET_HOME=/app/tool/models`，指向挂载后的模型目录
+# - 使用 `--entrypoint python` 覆盖镜像的默认入口
 # - 指定使用的镜像: `$(TOOL_IMAGE_NAME)`
-# - 调用脚本，并指定 python 脚本的输入输出参数: `--input "/app/$<" --output "/app/$@"`
+# - 调用挂载后的脚本 `/app/tool/main.py`，并指定输入输出参数:
+#   `--input "/app/$<" --output "/app/$@"`
 $(OUTPUT_DIR)/%.png: $(INPUT_DIR)/%.jpg $(DOCKER_BUILD_MARKER)
 	@echo "正在处理 $< -> $@ "
 	# 确保输出目录存在
