@@ -18,9 +18,14 @@ graph LR
     D --> E["npx autograding grade<br/>本地评分，生成成绩单"]
     E --> G["commit & push 成绩单"]
     G --> H["GitHub Actions 解密<br/>展示得分面板"]
+    H --> I{"可选：提交到社团官网？"}
+    I -- "不提交（默认）" --> J["报告仅自己可见"]
+    I -- "手动 Run Upload 工作流" --> K["报告进入社团官网<br/>招新总览 / 榜单"]
 ```
 
 请你在本地完成五个 Task，运行 `npx autograding grade` 生成加密成绩单 `autograding_report.json`，提交并推送后由 GitHub Actions 解密展示得分。评分全程在本地进行。
+
+报告单默认只展示给你自己看。**如需进入社团官网的招新榜单，可以手动提交（可选），见下方「5. 提交报告到社团官网」——push 不会自动上传。**
 
 ## 五个 Task
 
@@ -104,10 +109,23 @@ push 后打开派生仓库的 **Actions** 标签页，在最新一次运行记�
 
 > 可随时提交report。
 
+### 5. 提交报告到社团官网（可选，默认不提交）
+
+你的报告单默认只在你自己仓库的 Actions 记录里可见，**不会自动上传到官网**。如果你希望它被社团官网的招新总览 / 榜单收录，请手动提交：
+
+1. 在派生仓库打开 **Actions** 标签页；
+2. 左侧选择 **Upload report to official site** 工作流；
+3. 点右侧 **Run workflow**（分支保持默认即可）→ 运行一次。
+
+运行结果为绿色，表示官网已收到报告；红色表示提交失败（网络或官网暂时不可用），**重新 Run workflow** 即可——官网按报告内容去重，重复提交安全。上传前会先校验报告单可正常解密（与 Actions 自反馈同一工具），损坏的报告不会被提交。
+
+> 不运行此工作流 = 报告不会进入官网，你的得分记录完全由自己掌握。
+
 ## 常见问题
 
 - **`npx autograding grade` 报错找不到命令**：确认已运行 `npm install`，且 Node.js 版本 ≥ 20。
 - **GitHub Actions 提示"报告单解密失败"**：确认 `autograding_report.json` 是 `npx autograding grade` 生成的原始文件，未经手动编辑。
+- **官网没看到我的报告？**：确认你手动运行过 `Upload report to official site` 工作流且结果为绿色。push 报告不会自动提交官网，需手动触发；若运行结果为红色，重新运行一次即可（官网按内容去重，重复提交安全）。
 - **Task 4 得 0 分**：确认已在 `task4/` 目录复制 `Makefile` 并完成全部 TODO，且 Docker Desktop 正在运行。
 - **Task 2 的 Compose 验证失败**：确认本地能拉取 `nginx` 镜像（可配置镜像加速或代理），`docker compose` 可用，且**已在运行 `grade` 前手动 `docker compose -f task2/compose.yml up -d` 拉起 nginx**（grader 不替你拉起，nginx 未 running 该项直接 0 分）。
 - **Task 1 的 SSH 检查失败**：确认 `~/.ssh` 下有公钥、`ssh-add -l` 已加载密钥、指纹可解析（见 [task1.md](./tasks/task1.md)）。
