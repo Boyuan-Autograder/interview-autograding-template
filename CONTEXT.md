@@ -39,3 +39,10 @@
 ## 展示
 
 - **Job Summary** — GitHub Actions 的 `$GITHUB_STEP_SUMMARY`。decrypt 输出 Markdown 到此文件，候选人在 Actions 运行记录里看得分面板。私有仓可用、零设置。
+
+## 报告提交
+
+- **自主提交（Opt-in Submission）** — 候选人把加密报告单主动提交到社团官网的行为。push 不会自动触发：候选人在派生仓 Actions 页面对 `Upload report to official site` 工作流点一次 **Run workflow** 才提交；不点 = 报告只停留在自己的 Job Summary，不会进入官网（见 ADR-0004）。
+- **提交身份（Submission Identity）** — GitHub 登录名（`github.actor`），候选人无法修改；官网接口的 `github_username` 字段即此身份，榜单按它归属。
+- **报告作者（Report Author）** — 报告单明文 `author` 字段，取 `git config user.name`，候选人可自填（真名/昵称）。与提交身份是两个概念，两者都会入库，不得混用。
+- **官网后端（Official Site Backend）** — 社团官网招新系统后端（Spring Boot / Java 17）。提供公开 intake 端点接收加密报告单，用与工具仓一致的密钥在自己一侧解密（不调用 npm 包）、按 JSON Schema 校验后入库，形成评测总览/榜单。解密契约见工具仓 `interview-autograder` 的 #7（docs/report-format.md + 冻结测试向量）。端点零认证、密钥公开：任何持密钥者可伪造任意报告直 POST，榜单为自愿采样 + 招新参考，非权威判定（荣誉系统，ADR-0004）。

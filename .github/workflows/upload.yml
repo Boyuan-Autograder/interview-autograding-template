@@ -1,0 +1,53 @@
+name: Upload report to official site
+
+# 手动触发：候选人在派生仓 Actions 页面对本工作流点一次 Run = 显式提交报告单到社团官网。
+# 不运行 = 报告只停留在 Job Summary，不会进入官网（ADR-0004）。push 不会自动触发本工作流。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Verify report decrypts (gate)
+        run: |
+          if [ ! -f autograding_report.json ]; then
+            echo "❌ 仓库里没有 autograding_report.json。请先在本地运行 \`npx autograding grade\` 并 commit & push 报告单。"
+            exit 1
+          fi
+          if npx autograding decrypt autograding_report.json > /dev/null 2>&1; then
+            echo "✅ 报告单校验通过。"
+          else
+            echo "❌ 报告单解密失败，不提交官网。"
+            echo "请确认 autograding_report.json 是 \`npx autograding grade\` 生成的原始文件，未经手动编辑。"
+            exit 1
+          fi
+
+      - name: Submit report to club official site
+        run: |
+          REPORT_B64=$(base64 -w0 autograding_report.json)
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://official.boyuan.club/api/public/evaluations" \
+            -H "Content-Type: application/json" \
+            -d "{\"report\":\"$REPORT_B64\",\"github_username\":\"${{ github.actor }}\",\"repository\":\"${{ github.repository }}\",\"commit_sha\":\"${{ github.sha }}\"}")
+          echo "官网推送 HTTP $HTTP_CODE"
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "✅ 报告已提交到社团官网。"
+          else
+            echo "❌ 官网接收失败（HTTP $HTTP_CODE）。"
+            echo "请稍后重新 Run 本工作流重试——官网按报告内容 sha256 去重，重复提交安全。"
+            exit 1
+          fi
