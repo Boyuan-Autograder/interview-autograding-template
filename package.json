@@ -7,6 +7,6 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@boyuan-autograder/interview-autograder": "github:Boyuan-Autograder/interview-autograder#v0.2.1"
+    "@boyuan-autograder/interview-autograder": "github:Boyuan-Autograder/interview-autograder#v0.2.2"
   }
 }
